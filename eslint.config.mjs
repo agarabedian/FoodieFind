@@ -1,24 +1,36 @@
-import jsdoc from 'eslint-plugin-jsdoc';
-import eslint from '@eslint/js';
+import globals from 'globals';
+import pluginJs from '@eslint/js';
 import tseslint from 'typescript-eslint';
+import pluginReact from 'eslint-plugin-react';
+import jsdoc from 'eslint-plugin-jsdoc';
 
-const config = [
-    // configuration included in plugin
-    jsdoc.configs['flat/recommended'],
-    eslint.configs.recommended,
-    tseslint.configs.recommended,
+/** @type {import('eslint').Linter.Config[]} */
+export default [
+    pluginJs.configs.recommended,
+    ...tseslint.configs.recommended,
+    pluginReact.configs.flat.recommended,
     {
-        files: ['**/*.ts', '**/*.tsx'],
         plugins: {
             jsdoc,
         },
+        languageOptions: { globals: globals.browser },
+        files: ['**/*.ts', '**/*.tsx'],
         rules: {
-            'jsdoc/require-description': 'warn',
-            'jsdoc/require-jsdoc': 'warn',
-            'no-unused-vars': 'error',
-            '@typescript-eslint/no-unused-vars': ['warn'],
+            'jsdoc/check-alignment': 'error',
+            'jsdoc/check-indentation': 'error',
+            'jsdoc/require-jsdoc': [
+                'error',
+                {
+                    require: {
+                        FunctionDeclaration: true,
+                        MethodDefinition: true,
+                        ClassDeclaration: true,
+                        ArrowFunctionExpression: true,
+                        FunctionExpression: true,
+                    },
+                },
+            ],
+            'jsdoc/require-param': 'error',
         },
     },
 ];
-
-export default config;
