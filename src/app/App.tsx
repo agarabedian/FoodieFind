@@ -1,11 +1,13 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router';
-import logo from '../logo.svg';
 import '../app/App.css';
 import HomePage from './pages/HomePage';
 import { ThemeProvider } from '@mui/material';
 import darkTheme from '../theme';
 
+/**
+ * Main App component.
+ */
 function App() {
     return (
         <ThemeProvider theme={darkTheme}>
