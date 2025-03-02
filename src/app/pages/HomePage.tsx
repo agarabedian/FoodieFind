@@ -85,7 +85,7 @@ const HomePage: React.FC = () => {
                             onClick={handleNextPage}
                             sx={{ mt: 2, minWidth: 115 }}
                         >
-                            {categories.length > 0 ? 'Next Page' : 'All'}
+                            {categories.length > 0 ? 'Next Page' : 'Anything'}
                         </Button>
                     </Box>
                 </Box>
