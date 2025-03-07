@@ -1,15 +1,18 @@
 import React from 'react';
 import { useState } from 'react';
 import CATEGORIES from '../constants';
-import { useNavigate } from 'react-router';
+import { useNavigate, useLocation } from 'react-router';
 import { Container, Typography, Button, Box, Paper, Grid2 } from '@mui/material';
 
 /**
  * Create the HomePage component.
  */
 const HomePage: React.FC = () => {
-    const [categories, setCategories] = useState<string[]>([]);
     const navigate = useNavigate();
+    const location = useLocation();
+    const prevCategories = location.state as string[];
+    //Use the previous categories if they exist, otherwise start with an empty array
+    const [categories, setCategories] = useState<string[]>(prevCategories ?? []);
 
     /**
      * Add category to the list if not present, or remove it if present.
@@ -36,7 +39,7 @@ const HomePage: React.FC = () => {
      * Function to navigate to the results page.
      */
     const handleNextPage = () => {
-        navigate('/next-page');
+        navigate('/results', { state: categories });
     };
 
     return (
@@ -85,7 +88,7 @@ const HomePage: React.FC = () => {
                             onClick={handleNextPage}
                             sx={{ mt: 2, minWidth: 115 }}
                         >
-                            {categories.length > 0 ? 'Next Page' : 'Anything'}
+                            {categories.length > 0 ? 'Next' : 'Anything'}
                         </Button>
                     </Box>
                 </Box>

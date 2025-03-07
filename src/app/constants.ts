@@ -1,4 +1,4 @@
-// Complete list of food categories.
+// List of supported food categories.
 const CATEGORIES: string[] = [
     'burgers',
     'chinese',
